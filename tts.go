@@ -21,14 +21,10 @@ func CreateTts() *Tts {
 	return this
 }
 
+// Output the given string as audio.
 func (this *Tts) Speak(s string) {
 	cmd := exec.Command(this.espeakExe, "--path="+this.espeakDir, s)
 	if err := cmd.Run(); err != nil {
 		log.Fatal(err)
 	}
-}
-
-func main() {
-	tts := CreateTts()
-	tts.Speak("Make the computer speak")
 }
