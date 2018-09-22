@@ -1,4 +1,4 @@
-package main
+package tts
 
 import (
 	"log"
@@ -16,7 +16,7 @@ func CreateTts() *Tts {
 	// Get the absolute path to this file.
 	_, filename, _, _ := runtime.Caller(0)
 	this := &Tts{}
-	this.espeakDir = path.Join(path.Dir(filename), "espeak")
+	this.espeakDir = path.Join(path.Dir(filename), "espeak", runtime.GOOS)
 	this.espeakExe = path.Join(this.espeakDir, "speak")
 	return this
 }
