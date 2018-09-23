@@ -2,6 +2,7 @@ package tts
 
 import (
 	. "github.com/ricallinson/simplebdd"
+	"path"
 	"reflect"
 	"testing"
 )
@@ -28,8 +29,26 @@ func TestTts(t *testing.T) {
 	Describe("Speak()", func() {
 
 		It("should speak 'hello tests'", func() {
+			defer func() {
+				if r := recover(); r == nil {
+					AssertEqual(true, true)
+				} else {
+					AssertEqual(true, false)
+				}
+			}()
 			tts.Speak("hello tests")
-			AssertEqual(true, true)
+		})
+
+		It("should NOT speak 'hello tests'", func() {
+			defer func() {
+				if r := recover(); r == nil {
+					AssertEqual(true, false)
+				} else {
+					AssertEqual(true, true)
+				}
+			}()
+			tts.espeakExe = path.Join("dev", "null")
+			tts.Speak("hello tests")
 		})
 
 	})
