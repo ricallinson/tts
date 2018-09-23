@@ -5,6 +5,7 @@ import (
 	"path"
 	"reflect"
 	"testing"
+	"fmt"
 )
 
 func TestTts(t *testing.T) {
@@ -51,6 +52,13 @@ func TestTts(t *testing.T) {
 			tts.Speak("hello tests")
 		})
 
+	})
+
+	Describe("listEspeakDir()", func() {
+		It("should list all espeak files for OS", func() {
+			fmt.Println(tts.listEspeakDir())
+			AssertEqual(len(tts.listEspeakDir()), 4)
+		})
 	})
 
 	Report(t)

@@ -2,6 +2,7 @@ package tts
 
 import (
 	"os"
+	"io/ioutil"
 	"os/exec"
 	"path"
 	"runtime"
@@ -25,4 +26,16 @@ func (this *Tts) Speak(s string) {
 	if err := cmd.Run(); err != nil {
 		panic(err)
 	}
+}
+
+func (this *Tts) listEspeakDir() []string {
+	list := []string{}
+    files, err := ioutil.ReadDir(this.espeakDir)
+    if err != nil {
+        return list
+    }
+    for _, f := range files {
+        list = append(list, f.Name())
+    }
+    return list
 }
