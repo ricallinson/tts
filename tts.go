@@ -1,6 +1,7 @@
 package tts
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -28,14 +29,23 @@ func (this *Tts) Speak(s string) {
 	}
 }
 
-func (this *Tts) listEspeakDir() []string {
-	list := []string{}
+func (this *Tts) validateEspeakDir() bool {
 	files, err := ioutil.ReadDir(this.espeakDir)
 	if err != nil {
-		return list
+		return false
 	}
+	count := 0
 	for _, f := range files {
-		list = append(list, f.Name())
+		if f.Name() == "dictsource" || f.Name() == "espeak-data" || f.Name() == "speak" {
+			count++
+		}
 	}
-	return list
+	return count == 3
+}
+
+func (this *Tts) validateEspeakExe() bool {
+	info, _ := os.Stat(this.espeakExe)
+	mode := info.Mode()
+	fmt.Println(mode)
+	return false
 }

@@ -53,15 +53,15 @@ func TestTts(t *testing.T) {
 
 	})
 
-	Describe("listEspeakDir()", func() {
-		It("should list all espeak files for OS", func() {
-			count := 0
-			for _, file := range tts.listEspeakDir() {
-				if file == "dictsource" || file == "espeak-data" || file == "speak" {
-					count++
-				}
-			}
-			AssertEqual(count, 3)
+	Describe("validateEspeakDir()", func() {
+		It("should return true", func() {
+			AssertEqual(tts.validateEspeakDir(), true)
+		})
+	})
+
+	Describe("validateEspeakExe()", func() {
+		It("should return true", func() {
+			AssertEqual(tts.validateEspeakExe(), true)
 		})
 	})
 
