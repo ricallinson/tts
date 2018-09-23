@@ -1,11 +1,11 @@
 package tts
 
 import (
+	"fmt"
 	. "github.com/ricallinson/simplebdd"
 	"path"
 	"reflect"
 	"testing"
-	"fmt"
 )
 
 func TestTts(t *testing.T) {
@@ -34,6 +34,7 @@ func TestTts(t *testing.T) {
 				if r := recover(); r == nil {
 					AssertEqual(true, true)
 				} else {
+					fmt.Println(r)
 					AssertEqual(false, true)
 				}
 			}()
@@ -45,7 +46,6 @@ func TestTts(t *testing.T) {
 				if r := recover(); r == nil {
 					AssertEqual(false, true)
 				} else {
-					fmt.Println(r)
 					AssertEqual(true, true)
 				}
 			}()
