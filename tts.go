@@ -2,6 +2,7 @@ package tts
 
 import (
 	"log"
+	"os"
 	"os/exec"
 	"path"
 	"runtime"
@@ -14,9 +15,9 @@ type Tts struct {
 
 func CreateTts() *Tts {
 	// Get the absolute path to this file.
-	_, filename, _, _ := runtime.Caller(0)
+	// _, filename, _, _ := runtime.Caller(0)
 	this := &Tts{}
-	this.espeakDir = path.Join(path.Dir(filename), "espeak", runtime.GOOS)
+	this.espeakDir = path.Join(os.Getenv("GOPATH"), "src", "github.com", "ricallinson", "tts", "espeak", runtime.GOOS)
 	this.espeakExe = path.Join(this.espeakDir, "speak")
 	return this
 }
