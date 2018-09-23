@@ -8,3 +8,5 @@ install:
 os:
   - linux
   - osx
+
+sudo: required

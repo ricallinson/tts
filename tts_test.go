@@ -5,7 +5,6 @@ import (
 	"path"
 	"reflect"
 	"testing"
-	"fmt"
 )
 
 func TestTts(t *testing.T) {
@@ -34,7 +33,7 @@ func TestTts(t *testing.T) {
 				if r := recover(); r == nil {
 					AssertEqual(true, true)
 				} else {
-					AssertEqual(true, false)
+					AssertEqual(false, true)
 				}
 			}()
 			tts.Speak("hello tests")
@@ -43,7 +42,7 @@ func TestTts(t *testing.T) {
 		It("should NOT speak 'hello tests'", func() {
 			defer func() {
 				if r := recover(); r == nil {
-					AssertEqual(true, false)
+					AssertEqual(false, true)
 				} else {
 					AssertEqual(true, true)
 				}
@@ -56,8 +55,13 @@ func TestTts(t *testing.T) {
 
 	Describe("listEspeakDir()", func() {
 		It("should list all espeak files for OS", func() {
-			fmt.Println(tts.listEspeakDir())
-			AssertEqual(len(tts.listEspeakDir()), 4)
+			count := 0
+			for _, file := range tts.listEspeakDir() {
+				if file == "dictsource" || file == "espeak-data" || file == "speak" {
+					count++
+				}
+			}
+			AssertEqual(count, 3)
 		})
 	})
 
