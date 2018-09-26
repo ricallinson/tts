@@ -1,7 +1,6 @@
 package tts
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -17,7 +16,7 @@ type Tts struct {
 func CreateTts() *Tts {
 	this := &Tts{}
 	this.espeakDir = path.Join(os.Getenv("GOPATH"), "src", "github.com", "ricallinson", "tts", "espeak", runtime.GOOS)
-	this.espeakExe = path.Join(this.espeakDir, "speak")
+	this.espeakExe = path.Join(this.espeakDir, "espeak")
 	return this
 }
 
@@ -36,16 +35,15 @@ func (this *Tts) validateEspeakDir() bool {
 	}
 	count := 0
 	for _, f := range files {
-		if f.Name() == "dictsource" || f.Name() == "espeak-data" || f.Name() == "speak" {
+		if f.Name() == "espeak-data" || f.Name() == "espeak" {
 			count++
 		}
 	}
-	return count == 3
+	return count == 2
 }
 
 func (this *Tts) validateEspeakExe() bool {
 	info, _ := os.Stat(this.espeakExe)
 	mode := info.Mode()
-	fmt.Println(mode)
-	return false
+	return info.Mode().String()[len(mode.String())-1:] == "x"
 }
