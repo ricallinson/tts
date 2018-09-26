@@ -16,7 +16,7 @@ type Tts struct {
 func CreateTts() *Tts {
 	this := &Tts{}
 	this.espeakDir = path.Join(os.Getenv("GOPATH"), "src", "github.com", "ricallinson", "tts", "espeak", runtime.GOOS)
-	this.espeakExe = path.Join(this.espeakDir, "espeak")
+	this.espeakExe = path.Join(this.espeakDir, "speak")
 	return this
 }
 
@@ -35,7 +35,7 @@ func (this *Tts) validateEspeakDir() bool {
 	}
 	count := 0
 	for _, f := range files {
-		if f.Name() == "espeak-data" || f.Name() == "espeak" {
+		if f.Name() == "espeak-data" || f.Name() == "speak" {
 			count++
 		}
 	}
